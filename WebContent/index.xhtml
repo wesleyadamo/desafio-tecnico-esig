@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="template/template.xhtml">
+
+	<ui:define name="title_page">
+  		Listagem de tarefas
+	</ui:define>
+
+	<ui:define name="title_section">
+  		Listagem de tarefas
+	</ui:define>
+
+	<ui:define name="content">
+		<h:form class="form-horizontal" id="form">
+			<p:growl id="message" showDetail="true" />
+			<div class="form-group row">
+				<label for="inputNumber" class="col-sm-2 col-form-label ">Número</label>
+				<div class="col-sm-4">
+					<h:inputText value="#{managedTask.filterNumber}"
+						styleClass="form-control number"
+						placeholder="Digite o número da tarefa" id="inputNumber" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="inputTitle" class="col-sm-2 col-form-label">Título/Descrição</label>
+				<div class="col-sm-9">
+					<h:inputText value="#{managedTask.task.title}"
+						styleClass="form-control" id="inputTitle" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="" class="col-sm-2 col-form-label">Responsável</label>
+				<div class="col-sm-3">
+					<h:selectOneMenu id="group" styleClass="form-control"
+						value="#{managedTask.responsible.id}">
+						<f:selectItem itemLabel="Select" itemValue="" />
+						<f:selectItems value="#{managedTask.responsibles}"
+							var="responsible" itemValue="#{responsible.id}"
+							itemLabel="#{responsible.name}" />
+					</h:selectOneMenu>
+				</div>
+				<label for="" class="col-sm-1 form-label">Situação</label>
+				<div class="col-sm-3">
+					<h:selectOneMenu value="#{managedTask.task.status}"
+						styleClass="form-control">
+						<f:selectItem itemLabel="Select" itemValue="" />
+						<f:selectItems value="#{managedTask.status}" />
+					</h:selectOneMenu>
+				</div>
+
+
+				<div class="col-sm-2">
+					<h:commandButton value="Buscar tarefas"
+						action="#{ managedTask.searchTask}"
+						styleClass="btn btn-info form-control" update=":form" />
+				</div>
+			</div>
+
+			<h:dataTable var="task" value="#{managedTask.tasks}" id="table-tasks"
+				styleClass="table table-bordered table-striped dataTable dtr-inline collapsed">
+				<h:column>
+					<f:facet name="header">Número</f:facet>    				
+												#{task.id} 
+											</h:column>
+
+				<p:column>
+					<f:facet name="header">Título</f:facet>   
+												#{task.title}
+											</p:column>
+
+				<p:column>
+					<f:facet name="header">Responsável</f:facet>  
+												#{task.responsible.name}
+											</p:column>
+
+				<p:column>
+					<f:facet name="header">Ações</f:facet>
+
+
+					<h:commandLink action="#{managedTask.edit}" title="editar"
+						styleClass="btn btn-sm bg-gradient-info">
+						<i class="far fa-edit"></i>
+						<!-- Using this to replace the f:param tag to avoid getting the request object -->
+						<f:setPropertyActionListener target="#{managedTask.task}"
+							value="#{task}" />
+					</h:commandLink> &#160;
+
+
+												<h:commandLink action="#{managedTask.complete}"
+						rendered="#{  task.status != 'Concluida'}" title="Concluir "
+						styleClass="btn btn-sm btn-success">
+						<i class="far fa-check-square"></i>
+						<!-- Using this to replace the f:param tag to avoid getting the request object -->
+						<f:setPropertyActionListener target="#{managedTask.task}"
+							value="#{task}" />
+					</h:commandLink>&#160;
+
+					<h:commandLink action="#{managedTask.delete}" title="Remover"
+						styleClass="btn btn-sm btn-danger"
+						onclick="return confirm('Deseja excluir a tarefa?')">
+						<i class="fas fa-trash-alt"></i>
+						<!-- Using this to replace the f:param tag to avoid getting the request object -->
+						<f:setPropertyActionListener target="#{managedTask.task}"
+							value="#{task}" />
+
+
+					</h:commandLink>
+				</p:column>
+			</h:dataTable>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+				responsive="true" width="350">
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no ui-button-flat" />
+				<p:commandButton value="Yes" type="button"
+					styleClass="ui-confirmdialog-yes" />
+			</p:confirmDialog>
+			<!-- /.card-body -->
+		</h:form>
+	</ui:define>
+	<ui:define name="script">
+		<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+		<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+		<script
+			src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+		<script
+			src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#form\\:table-tasks').DataTable({
+					"language" : datatable_translate
+				});
+
+			});
+		</script>
+	</ui:define>
+</ui:composition>
+</html>

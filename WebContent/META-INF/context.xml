@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context reloadable="true">
+	<Resource name="jdbc/Tarefa" auth="Container"
+		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
+		maxWait="10000" username="postgres" password="root"
+		driverClassName="org.postgresql.Driver"
+		url="jdbc:postgresql://www.localhost:5432/desafio_esig?useTimezone=true&amp;serverTimezone=UTC" />
+		
+		
+		<Resource name="BeanManager" auth="Container"
+		type="javax.enterprise.inject.spi.BeanManager"
+		factory="org.jboss.weld.resources.ManagerObjectFactory" />
+
+</Context>
