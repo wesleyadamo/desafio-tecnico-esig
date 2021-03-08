@@ -18,6 +18,7 @@ public class ResponsibleRN {
 	}
 
 	public boolean register(Responsible responsible) {
+
 		return responsibleDAO.register(responsible);
 
 	}

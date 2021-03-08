@@ -52,15 +52,12 @@
 						<f:selectItems value="#{managedTask.status}" />
 					</h:selectOneMenu>
 				</div>
-
-
 				<div class="col-sm-2">
 					<h:commandButton value="Buscar tarefas"
 						action="#{ managedTask.searchTask}"
 						styleClass="btn btn-info form-control" update=":form" />
 				</div>
 			</div>
-
 			<h:dataTable var="task" value="#{managedTask.tasks}" id="table-tasks"
 				styleClass="table table-bordered table-striped dataTable dtr-inline collapsed">
 				<h:column>
@@ -85,40 +82,25 @@
 					<h:commandLink action="#{managedTask.edit}" title="editar"
 						styleClass="btn btn-sm bg-gradient-info">
 						<i class="far fa-edit"></i>
-						<!-- Using this to replace the f:param tag to avoid getting the request object -->
 						<f:setPropertyActionListener target="#{managedTask.task}"
 							value="#{task}" />
 					</h:commandLink> &#160;
-
-
-												<h:commandLink action="#{managedTask.complete}"
+					<h:commandLink action="#{managedTask.complete}"
 						rendered="#{  task.status != 'Concluida'}" title="Concluir "
 						styleClass="btn btn-sm btn-success">
 						<i class="far fa-check-square"></i>
-						<!-- Using this to replace the f:param tag to avoid getting the request object -->
 						<f:setPropertyActionListener target="#{managedTask.task}"
 							value="#{task}" />
 					</h:commandLink>&#160;
-
 					<h:commandLink action="#{managedTask.delete}" title="Remover"
 						styleClass="btn btn-sm btn-danger"
 						onclick="return confirm('Deseja excluir a tarefa?')">
 						<i class="fas fa-trash-alt"></i>
-						<!-- Using this to replace the f:param tag to avoid getting the request object -->
 						<f:setPropertyActionListener target="#{managedTask.task}"
 							value="#{task}" />
-
-
 					</h:commandLink>
 				</p:column>
 			</h:dataTable>
-			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
-				responsive="true" width="350">
-				<p:commandButton value="No" type="button"
-					styleClass="ui-confirmdialog-no ui-button-flat" />
-				<p:commandButton value="Yes" type="button"
-					styleClass="ui-confirmdialog-yes" />
-			</p:confirmDialog>
 			<!-- /.card-body -->
 		</h:form>
 	</ui:define>
@@ -134,7 +116,6 @@
 				$('#form\\:table-tasks').DataTable({
 					"language" : datatable_translate
 				});
-
 			});
 		</script>
 	</ui:define>

@@ -1,9 +1,6 @@
 package br.com.persistence;
 
 import java.util.ArrayList;
-import java.util.Map;
-
-import org.hibernate.criterion.Example;
 
 import br.com.pojo.Task;
 

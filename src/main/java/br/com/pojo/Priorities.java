@@ -1,6 +1,6 @@
 package br.com.pojo;
 
-public enum Prioridades {
+public enum Priorities {
 	Alta, Média, Baixa
 
 }

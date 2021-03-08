@@ -4,20 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
 import br.com.persistence.ResponsibleRN;
 import br.com.persistence.TaskRN;
-import br.com.pojo.Prioridades;
+import br.com.pojo.Priorities;
 import br.com.pojo.Responsible;
 import br.com.pojo.Status;
 import br.com.pojo.Task;
 
-@SuppressWarnings("deprecation")
-@ManagedBean
+@Named
 @ViewScoped
 public class ManagedTask implements Serializable {
 
@@ -45,9 +44,9 @@ public class ManagedTask implements Serializable {
 
 	}
 
-	public Prioridades[] getPriority() {
+	public Priorities[] getPriority() {
 
-		return Prioridades.values();
+		return Priorities.values();
 	}
 
 	public Status[] getStatus() {
@@ -63,15 +62,14 @@ public class ManagedTask implements Serializable {
 	public String searchTask() {
 
 		task.setDescription(task.getTitle());
-		ResponsibleRN resp = new ResponsibleRN();
-		task.setResponsible(resp.get(responsible.getId()));
+		ResponsibleRN responsibleRN = new ResponsibleRN();
+		task.setResponsible(responsibleRN.get(responsible.getId()));
 		task.setId(filterNumber == null ? 0 : filterNumber);
 
-		System.out.println("id task " + task.getId());
 
-		TaskRN t = new TaskRN();
-		this.tasks = t.filterTasks(task);
-
+		TaskRN taskRN = new TaskRN();
+		this.tasks = taskRN.filterTasks(task);
+		
 		return "";
 	}
 
@@ -89,8 +87,8 @@ public class ManagedTask implements Serializable {
 	}
 
 	public String register() {
-		ResponsibleRN res = new ResponsibleRN();
-		responsible = res.get(responsible.getId());
+		ResponsibleRN responsibleRN = new ResponsibleRN();
+		responsible = responsibleRN.get(responsible.getId());
 
 		if (task.getId() == 0)
 			addMessage("Sucesso", "Tarefa cadastrada com sucesso!");
@@ -99,8 +97,8 @@ public class ManagedTask implements Serializable {
 
 		task.setResponsible(responsible);
 
-		TaskRN t = new TaskRN();
-		t.register(task);
+		TaskRN taskRN = new TaskRN();
+		taskRN.register(task);
 
 		return "index.jsf?faces-redirect=true";
 
@@ -114,9 +112,9 @@ public class ManagedTask implements Serializable {
 	}
 
 	public String delete() {
-		TaskRN t = new TaskRN();
+		TaskRN taskRN = new TaskRN();
 
-		t.delete(task);
+		taskRN.delete(task);
 		addMessage("Sucesso", "Tarefa removida com sucesso!");
 
 		return "index.jsf?faces-redirect=true";
@@ -126,8 +124,8 @@ public class ManagedTask implements Serializable {
 	public String complete() {
 
 		task.setStatus(Status.Concluida);
-		TaskRN t = new TaskRN();
-		t.register(task);
+		TaskRN taskRN = new TaskRN();
+		taskRN.register(task);
 
 		addMessage("Sucesso", "Tarefa concluída com sucesso!");
 

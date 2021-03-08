@@ -3,9 +3,9 @@ package br.com.persistence;
 import java.util.ArrayList;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import br.com.pojo.Responsible;
-import br.com.pojo.Task;
 
 public class ResponsibleDAOHibernate implements ResponsibleDAO {
 
@@ -19,7 +19,9 @@ public class ResponsibleDAOHibernate implements ResponsibleDAO {
 
 	public boolean register(Responsible responsible) {
 		try {
+			Transaction tx = this.session.beginTransaction();
 			this.session.save(responsible);
+			tx.commit();
 			return true;
 
 		} catch (Exception e) {
@@ -46,7 +48,6 @@ public class ResponsibleDAOHibernate implements ResponsibleDAO {
 
 	@Override
 	public ArrayList<Responsible> list() {
-		System.out.println(session.get(Task.class, 1));
 		return (ArrayList<Responsible>) this.session.createQuery("SELECT a FROM Responsible a", Responsible.class)
 				.getResultList();
 

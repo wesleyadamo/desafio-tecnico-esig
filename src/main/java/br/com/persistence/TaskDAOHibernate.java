@@ -1,9 +1,7 @@
 package br.com.persistence;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,10 +11,7 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Restrictions;
 
 import br.com.pojo.Task;
 
@@ -37,8 +32,6 @@ public class TaskDAOHibernate implements TaskDAO {
 			return true;
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e);
 			return false;
 
 		}
@@ -51,7 +44,6 @@ public class TaskDAOHibernate implements TaskDAO {
 	}
 
 	public ArrayList<Task> list() {
-		System.out.println(session.get(Task.class, 1));
 		return (ArrayList<Task>) this.session.createQuery("SELECT a FROM Task a order by id ASC", Task.class)
 				.getResultList();
 
@@ -59,13 +51,6 @@ public class TaskDAOHibernate implements TaskDAO {
 
 	@Override
 	public ArrayList<Task> filterTasks(Task task) {
-		/*
-		 * System.out.println("description "+task.getDescription()); Criterion title =
-		 * Restrictions.eq("t.title", task.getTitle()); Criterion description =
-		 * Restrictions.eq("t.description", task.getTitle());
-		 * 
-		 */
-
 		// Create CriteriaBuilder
 		CriteriaBuilder builder = session.getCriteriaBuilder();
 
@@ -94,11 +79,9 @@ public class TaskDAOHibernate implements TaskDAO {
 		}
 
 		if (!(task.getResponsible() == null)) {
-			System.out.println("entrou no responsavel");
 			predicatess.add(builder.and(builder.equal(myObjectRoot.get("responsible"), task.getResponsible())));
 		}
 		if (!(task.getStatus() == null)) {
-			System.out.println("entrou no status");
 			predicatess.add(builder.and(builder.equal(myObjectRoot.get("status"), task.getStatus())));
 		}
 

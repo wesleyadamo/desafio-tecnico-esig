@@ -29,7 +29,7 @@ public class Task implements Serializable {
 	@NotNull(message = "A descrição é obrigatória")
 	private String description;
 	@NotNull(message = "A prioridade é obrigatória")
-	private Prioridades priority;
+	private Priorities priority;
 
 	private Status status;
 
@@ -65,11 +65,11 @@ public class Task implements Serializable {
 		this.description = description;
 	}
 
-	public Prioridades getPriority() {
+	public Priorities getPriority() {
 		return priority;
 	}
 
-	public void setPriority(Prioridades priority) {
+	public void setPriority(Priorities priority) {
 		this.priority = priority;
 	}
 

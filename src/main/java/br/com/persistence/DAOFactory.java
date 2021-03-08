@@ -8,12 +8,6 @@ public class DAOFactory {
 		return taskDAO;
 	}
 
-	public static EnderecoDAO createStreetDAO() {
-		EnderecoDAOHibernate streetDAO = new EnderecoDAOHibernate();
-		streetDAO.setSession(HibernateUtil.getSessionFactory().openSession());
-		return streetDAO;
-	}
-
 	public static ResponsibleDAO createResponsibleDAO() {
 		ResponsibleDAOHibernate responsibleDAO = new ResponsibleDAOHibernate();
 		responsibleDAO.setSession(HibernateUtil.getSessionFactory().openSession());

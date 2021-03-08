@@ -25,7 +25,6 @@
 		<property name="use_sql_comments">true</property>
 		<property name="hibernate.connection.autocommit">false</property>
 
-		<mapping class="br.com.tarefas.Endereco" />
 		<mapping class="br.com.tarefas.Responsavel" />
 		<mapping class="br.com.tarefas.Tarefa" />
 

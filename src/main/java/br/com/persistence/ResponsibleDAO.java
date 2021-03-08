@@ -3,7 +3,6 @@ package br.com.persistence;
 import java.util.ArrayList;
 
 import br.com.pojo.Responsible;
-import br.com.pojo.Task;
 
 public interface ResponsibleDAO {
 	

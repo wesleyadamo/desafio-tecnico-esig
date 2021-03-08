@@ -24,7 +24,6 @@ public class FilterHibernate implements Filter {
 			throws ServletException, ConstraintViolationException {
 
 		Session currentSession = this.sf.getCurrentSession();
-
 		Transaction transaction = null;
 
 		try {
